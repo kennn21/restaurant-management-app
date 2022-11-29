@@ -16,6 +16,8 @@ function DisplayTables(props){
 
     const [tables, setTables] = useState([])
     const [activeTable, setActiveTable] = useState([])
+    const [foods, setFoods] = useState([])
+    const [receipts, setReceipts] = useState([])
     const [isPopUp, setIsPopUp] = useState(false)
 
     useEffect(() => {
@@ -26,6 +28,23 @@ function DisplayTables(props){
             setTables(data)
           }
         })
+
+        onValue(ref(db,"foods"), (snapshot) => {
+          setFoods([])
+          const data = snapshot.val()
+          if(data){
+            setFoods(data)
+          }
+        })
+
+        onValue(ref(db,"receipts"), (snapshot) => {
+          setReceipts([])
+          const data = snapshot.val()
+          if(data){
+            setReceipts(data)
+          }
+        })
+
       }, []);
 
     var handle_table_button_click = (x) => {
@@ -36,11 +55,18 @@ function DisplayTables(props){
     var disableIsPopUp = () => {
       setIsPopUp(false)
     }
-      
+    
+
 // console.log(tables)
     if(isPopUp) {
       return (
-        <DisplayDetails activeTable={activeTable} isPopUp={isPopUp} disableIsPopUp={disableIsPopUp}/>
+        <DisplayDetails
+        activeTable={activeTable}
+        foods={foods}
+        receipts={receipts}
+        isPopUp={isPopUp}
+        disableIsPopUp={disableIsPopUp}
+        />
       )
     }
     return (
@@ -58,7 +84,13 @@ function DisplayTables(props){
                   Some quick example text to build on the card title and make up the
                   bulk of the card's content.
                 </Card.Text>  
-                  <Button variant="primary" onClick={()=>{handle_table_button_click(table[1],true)}}>Go to {table[1].name}</Button>
+                  <Button variant="primary" onClick={()=>{
+                      handle_table_button_click(
+                        table[1],
+                        true
+                        )
+                      }
+                    }>Go to {table[1].name}</Button>
                 </Card.Body>
               </Card>
             )
