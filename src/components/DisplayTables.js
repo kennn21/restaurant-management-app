@@ -2,6 +2,8 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+
+import DisplayDetails from './DisplayDetails';
 import config from '../config.json';
 
 import { useEffect, useState, useRef } from 'react';
@@ -13,7 +15,8 @@ import { set, ref, onValue, remove, update } from "firebase/database";
 function DisplayTables(props){
 
     const [tables, setTables] = useState([])
-
+    const [activeTable, setActiveTable] = useState([])
+    const [isPopUp, setIsPopUp] = useState(false)
 
     useEffect(() => {
         onValue(ref(db,"tables"), (snapshot) => {
@@ -24,8 +27,22 @@ function DisplayTables(props){
           }
         })
       }, []);
+
+    var handle_table_button_click = (x) => {
+      setActiveTable(x)
+      setIsPopUp(true)
+    }
+
+    var disableIsPopUp = () => {
+      setIsPopUp(false)
+    }
       
 // console.log(tables)
+    if(isPopUp) {
+      return (
+        <DisplayDetails activeTable={activeTable} isPopUp={isPopUp} disableIsPopUp={disableIsPopUp}/>
+      )
+    }
     return (
         <>
           <Container className="container d-flex justify-content-evenly">
@@ -41,7 +58,7 @@ function DisplayTables(props){
                   Some quick example text to build on the card title and make up the
                   bulk of the card's content.
                 </Card.Text>  
-                  <Button variant="primary">Go to {table[1].name}</Button>
+                  <Button variant="primary" onClick={()=>{handle_table_button_click(table[1],true)}}>Go to {table[1].name}</Button>
                 </Card.Body>
               </Card>
             )

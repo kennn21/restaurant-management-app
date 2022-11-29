@@ -1,4 +1,6 @@
 import DisplayTables from './components/DisplayTables';
+import DisplayDetails from './components/DisplayDetails';
+
 import firebase from 'firebase/compat/app';
 import { db, analytics } from './database/firebase'
 
@@ -17,6 +19,7 @@ function App() {
 
       {/* Content */}
       <DisplayTables />
+
       
     </div>
   );
