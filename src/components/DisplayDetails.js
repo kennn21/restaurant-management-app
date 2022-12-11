@@ -57,7 +57,8 @@ function DisplayDetails(props) {
     })
 
     var change_table_status = ()=>{
-        console.log("Changing status of " + props.activeTable.name)
+        alert("This button will change the status of " + props.activeTable.name + " in database")
+        console.log("This button will change the status of " + props.activeTable.name + " in database")
     }
 
     var convertStatus = (status)=>{
