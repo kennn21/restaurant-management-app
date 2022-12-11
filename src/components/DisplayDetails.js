@@ -3,8 +3,10 @@ import { useState, useEffect } from "react"
 
 import { db } from '../database/firebase'
 import { uid } from "uid"
-import { set, ref, onValue, remove, update } from "firebase/database"
-
+import { set, ref, onValue, remove, update, Database } from "firebase/database"
+import { async } from "@firebase/util"
+import userEvent from "@testing-library/user-event"
+import Button from "react-bootstrap/Button"
 
 
 var textStyle = {
@@ -33,6 +35,7 @@ function DisplayDetails(props) {
     const [selectedTable, setSelectedTable] = useState("")
     const [selectedReceipt, setSelectedReceipt] = useState([])
     const [selectedFood, setSelectedFood] = useState([])
+    const [tableStatus, setTableStatus] = useState()
 
     var ordered_foods = []
 
@@ -46,7 +49,6 @@ function DisplayDetails(props) {
         })
     }
     ,[])
-
     
     Object.entries(props.foods).map((food) =>{
         Object.entries(selectedFood).map((f) =>{
@@ -56,10 +58,19 @@ function DisplayDetails(props) {
         })
     })
 
-    var change_table_status = ()=>{
-        alert("This button will change the status of " + props.activeTable.name + " in database")
-        console.log("This button will change the status of " + props.activeTable.name + " in database")
+    const changeTableStatus = ()=>{
+        let id = props.activeTable.id
+        let status = 0
+        update(ref(db, '/tables/'+id), {
+            status: status
+        })
+        props.disableIsPopUp()
     }
+
+    var change_table_status = ()=>{
+        console.log("Changing status of " + props.activeTable.name)
+    }
+
 
     var convertStatus = (status)=>{
         switch(status) {
@@ -74,6 +85,15 @@ function DisplayDetails(props) {
           }
     }
 
+    var buttonFinish = (table) =>{
+        if(table == 1){
+            return(
+                <Button onClick={()=>{changeTableStatus()}}>Finish table</Button>
+            )
+        }
+        return(<></>)
+    }
+
     if(props.isPopUp){
         return(
             <Container style={textStyle} className="bg-dark text-center rounded">
@@ -83,9 +103,12 @@ function DisplayDetails(props) {
                         <p key={food.id}>{food.name}</p>
                     )
                 })}
-
                 {convertStatus(props.activeTable.status)}
+                {/* <button onClick={()=>{changeTableStatus(props.activeTable)}}>Change reservation status</button> */}
                 <button style={popUpCancelBtnStyle} className="btn btn-danger" onClick={props.disableIsPopUp}>x</button>
+                {
+                    buttonFinish(props.activeTable.status)
+                }
             </Container>
         )
     }else{

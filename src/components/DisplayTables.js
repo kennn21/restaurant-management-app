@@ -86,8 +86,7 @@ function DisplayTables(props){
                 </Card.Text>  
                   <Button variant="primary" onClick={()=>{
                       handle_table_button_click(
-                        table[1],
-                        true
+                        table[1]
                         )
                       }
                     }>Go to {table[1].name}</Button>
