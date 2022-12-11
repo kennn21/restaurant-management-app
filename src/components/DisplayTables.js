@@ -15,7 +15,7 @@ import { set, ref, onValue, remove, update } from "firebase/database";
 function DisplayTables(props){
 
     const [tables, setTables] = useState([])
-    const [activeTable, setActiveTable] = useState([])
+    const [activeTableId, setActiveTableId] = useState("")
     const [foods, setFoods] = useState([])
     const [receipts, setReceipts] = useState([])
     const [isPopUp, setIsPopUp] = useState(false)
@@ -48,7 +48,8 @@ function DisplayTables(props){
       }, []);
 
     var handle_table_button_click = (x) => {
-      setActiveTable(x)
+      console.log(x.id)
+      setActiveTableId(x.id)
       setIsPopUp(true)
     }
 
@@ -61,7 +62,7 @@ function DisplayTables(props){
     if(isPopUp) {
       return (
         <DisplayDetails
-        activeTable={activeTable}
+        activeTableId={activeTableId}
         foods={foods}
         receipts={receipts}
         isPopUp={isPopUp}

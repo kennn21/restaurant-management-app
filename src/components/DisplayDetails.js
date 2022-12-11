@@ -32,7 +32,7 @@ var tableStatusPositiveStyle = {
 
 function DisplayDetails(props) {
 
-    const [selectedTable, setSelectedTable] = useState("")
+    const [selectedTable, setSelectedTable] = useState([])
     const [selectedReceipt, setSelectedReceipt] = useState([])
     const [selectedFood, setSelectedFood] = useState([])
     const [tableStatus, setTableStatus] = useState()
@@ -41,12 +41,22 @@ function DisplayDetails(props) {
 
     useEffect(() =>{
         Object.entries(props.receipts).map((receipt) =>{
-            if(receipt[1].table_id == props.activeTable.id){
+            if(receipt[1].table_id == props.activeTableId){
                 var data = receipt[1]
                 setSelectedReceipt(data)
                 setSelectedFood(data.ordered_foods)
             }
         })
+
+        onValue(ref(db,"tables"), (snapshot) => {
+            setSelectedTable([])
+            const data = snapshot.val()
+            Object.entries(data).map((table,i)=>{
+                if(table[1].id == props.activeTableId){
+                    setSelectedTable(table[1])
+                }
+            })
+          })
     }
     ,[])
     
@@ -59,7 +69,7 @@ function DisplayDetails(props) {
     })
 
     const changeTableStatus = ()=>{
-        let id = props.activeTable.id
+        let id = props.activeTableId
         let status = 0
         update(ref(db, '/tables/'+id), {
             status: status
@@ -67,21 +77,17 @@ function DisplayDetails(props) {
         props.disableIsPopUp()
     }
 
-    var change_table_status = ()=>{
-        console.log("Changing status of " + props.activeTable.name)
-    }
-
 
     var convertStatus = (status)=>{
         switch(status) {
             case 0:
-              return <h6 onClick={change_table_status} style={tableStatusPositiveStyle}>Available</h6>
+              return <h6 style={tableStatusPositiveStyle}>Available</h6>
               break;
             case 1:
-              return <h6 onClick={change_table_status} style={tableStatusNegativeStyle}>Reserved</h6>
+              return <h6 style={tableStatusNegativeStyle}>Reserved</h6>
               break;
             default:
-              return <h6 onClick={change_table_status} style={tableStatusNegativeStyle}>Reserved</h6>
+              return <h6 style={tableStatusNegativeStyle}>Reserved</h6>
           }
     }
 
@@ -97,17 +103,17 @@ function DisplayDetails(props) {
     if(props.isPopUp){
         return(
             <Container style={textStyle} className="bg-dark text-center rounded">
-                <h1>{props.activeTable.name}</h1>
+                <h1>{selectedTable.name}</h1>
                 {ordered_foods.map((food,index)=>{
                     return(
                         <p key={food.id}>{food.name}</p>
                     )
                 })}
-                {convertStatus(props.activeTable.status)}
+                {convertStatus(selectedTable.status)}
                 {/* <button onClick={()=>{changeTableStatus(props.activeTable)}}>Change reservation status</button> */}
                 <button style={popUpCancelBtnStyle} className="btn btn-danger" onClick={props.disableIsPopUp}>x</button>
                 {
-                    buttonFinish(props.activeTable.status)
+                    buttonFinish(selectedTable.status)
                 }
             </Container>
         )
