@@ -72,8 +72,12 @@ function DisplayDetails(props) {
         let id = props.activeTableId
         let status = 0
         update(ref(db, '/tables/'+id), {
+<<<<<<< Updated upstream
             status: status,
             active_receipt_id: "inactive"
+=======
+            status: status
+>>>>>>> Stashed changes
         })
         props.disableIsPopUp()
     }

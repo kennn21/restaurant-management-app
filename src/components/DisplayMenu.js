@@ -3,6 +3,11 @@ import { ref, onValue, set } from "firebase/database"
 import { db } from "../database/firebase"
 import ListGroup from 'react-bootstrap/ListGroup'
 import { Container } from "react-bootstrap"
+<<<<<<< Updated upstream
+=======
+import { menuItemsData } from './Menu/data'
+import Menu from "./Menu"
+>>>>>>> Stashed changes
 
 function DisplayMenu(props) {
 
@@ -50,6 +55,7 @@ function DisplayMenu(props) {
     if (props.isPopUp) {
         return (
             <>
+<<<<<<< Updated upstream
                 <Container className="bg-white text-center rounded">
                     {Object.entries(props.foods).map((food, i) => {
                         return (
@@ -62,6 +68,12 @@ function DisplayMenu(props) {
                     })}
                 </Container>
                 <button onClick={createReceipt}>Order</button>
+=======
+                <Container className="center bg-white text-center rounded">
+                    <Menu list={menuItemsData} />
+                    <button onClick={createReceipt}>Order</button>
+                </Container>
+>>>>>>> Stashed changes
             </>
         )
     } else {
