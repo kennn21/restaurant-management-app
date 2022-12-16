@@ -9,12 +9,8 @@ import Row from 'react-bootstrap/Row';
 import config from '../config.json';
 
 import { db } from '../database/firebase';
-<<<<<<< Updated upstream
-import {ref, onValue, update, set} from "firebase/database";
-=======
 import {ref, onValue, update} from "firebase/database";
 import Menu from './Menu';
->>>>>>> Stashed changes
 
 function DisplayAvailableTables() {
 
@@ -52,33 +48,6 @@ function DisplayAvailableTables() {
 
     const changeTableStatus = (x)=>{
       let id = x.id
-<<<<<<< Updated upstream
-      let activeReceipt = x.active_receipt_id
-      let status = x.status
-      if(status === 0){
-        //change table status (DONE)
-        status = 1
-        //get number of receipt children (DONE)
-        let receiptNumber = 0
-        Object.entries(receipts).map((receipt, i) =>{
-          receiptNumber++
-          console.log(receiptNumber)
-        })
-        receiptNumber = (receiptNumber + 1).toString()
-        let recName = "rec"+receiptNumber
-        //create receipt (DONE)
-        set(ref(db, '/receipts/'+recName), {
-          recID: recName,
-          orderedFood: ""
-        })
-        //assign receipt (DONE)
-        let currReceipt = recName
-        update(ref(db, '/tables/'+id), {
-          status: status,
-          active_receipt_id: currReceipt
-        })
-      }
-=======
       let status = x.status
       if(status === 0){
           status = 1
@@ -86,7 +55,6 @@ function DisplayAvailableTables() {
       update(ref(db, '/tables/'+id), {
           status: status
       })
->>>>>>> Stashed changes
     }
 
     var handle_table_button_click = (x, y) => {
@@ -99,17 +67,6 @@ function DisplayAvailableTables() {
         setIsPopUp(false)
       }
 
-<<<<<<< Updated upstream
-      if(isPopUp) {
-        return (
-            <DisplayMenu
-            activeTable={activeTable}
-            foods={foods}
-            receipts={receipts}
-            isPopUp={isPopUp}
-            disableIsPopUp={disableIsPopUp}
-            />
-=======
       // if(isPopUp) {
       //   return (
       //       <DisplayMenu
@@ -131,7 +88,6 @@ function DisplayAvailableTables() {
           isPopUp={isPopUp}
           disableIsPopUp={disableIsPopUp}
           />
->>>>>>> Stashed changes
         )
       }
 

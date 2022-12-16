@@ -48,11 +48,7 @@ function DisplayTables(props){
       }, []);
 
     var handle_table_button_click = (x) => {
-<<<<<<< Updated upstream
-      //console.log(x.id)
-=======
       console.log(x.id)
->>>>>>> Stashed changes
       setActiveTableId(x.id)
       setIsPopUp(true)
     }
