@@ -48,7 +48,7 @@ function DisplayTables(props){
       }, []);
 
     var handle_table_button_click = (x) => {
-      //console.log(x.id)
+      console.log(x.id)
       setActiveTableId(x.id)
       setIsPopUp(true)
     }

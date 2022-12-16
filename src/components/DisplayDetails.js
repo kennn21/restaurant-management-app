@@ -8,7 +8,6 @@ import { async } from "@firebase/util"
 import userEvent from "@testing-library/user-event"
 import Button from "react-bootstrap/Button"
 
-
 var textStyle = {
     color: "white"
 }
@@ -28,7 +27,6 @@ var tableStatusPositiveStyle = {
     color : "lightgreen",
     fontWeight : "bold"
 }
-
 
 function DisplayDetails(props) {
 
@@ -77,7 +75,6 @@ function DisplayDetails(props) {
         })
         props.disableIsPopUp()
     }
-
 
     var convertStatus = (status)=>{
         switch(status) {
