@@ -7,6 +7,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Client from './pages/Client';
+import Cart from './pages/Cart';
+import Menu from './components/Menu';
+import { menuItemsData } from './components/Menu/data';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/client",
     element:<Client/>,
+  },
+  {
+    path: "/cart",
+    element:<Cart/>,
   },
 ]);
 
