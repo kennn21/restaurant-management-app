@@ -7,10 +7,7 @@ import { db } from '../../database/firebase'
 import Cart from '../Cart'
 
 const Menu = (props) => {
-  const initialState = [
-    {}
-  ]
-  const [cartList, addCartList] = useState(initialState)
+  const [cartList, setCartList] = useState([])
   const [newItem, setNewItem] = useState({
     itemId: 0,
     itemQu: 0
@@ -32,23 +29,41 @@ const Menu = (props) => {
       )
   }
 
-  const addItemToCartList = obj => {
-    addCartList(current => [...current, obj])
-    console.log("item id = " + obj.itemId)
-    console.log("item qu = " + obj.itemQu)
+  // const clearDuplicates = (newItem)=>{
+  //   console.log(newItem.itemId)
+  //   console.log(cartList[cartList.length - 1].itemId)
+  //   console.log(cartList[cartList.length - 1].itemId === newItem.itemId)
+  //   if(cartList[cartList.length - 1].itemId === newItem.itemId && cartList.length > 2){
+  //   cartList.push(newItem)
+  //     cartList[cartList.length -1].itemQu = newItem.itemQu
+  //     cartList.pop()
+  //     console.log("popping")
+  //   }
+  // }
+  
+  const addItemToCartList = newItem => {
+    // setCartList(current => [...current, newItem])
+    // clearDuplicates(newItem)
+    cartList.push(newItem)
+    console.log("item id = " + newItem.itemId)
+    console.log("item qu = " + newItem.itemQu)
     console.log(cartList)
   }
   
   if(props.isPopUp){
     return(
-      <Cart cartList={props.cartList}/>
+      <Cart
+        cartList={props.cartList}
+        togglePopUp = {props.togglePopUp}
+        isPopUp = {props.isPopUp}  
+      />
     )
   } else{
     return (
       <main>
             <div onClick={props.togglePopUp}>
               <OrderCountButton 
-                  cartCount = {cartList.length}
+                  cartCount = {cartList.slice(1).length}
                   togglePopUp = {props.togglePopUp}
                   isPopUp = {props.isPopUp}
               />
@@ -58,7 +73,11 @@ const Menu = (props) => {
   
             props.list.map((item)=>{
               return(
-                <MenuItem key={item.id} item={item} triggerSetNewItem={triggerSetNewItem} />
+                <MenuItem
+                  key={item.id}
+                  item={item}
+                  triggerSetNewItem={triggerSetNewItem}
+                />
               )
             })
           }       

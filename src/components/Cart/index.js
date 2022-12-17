@@ -48,7 +48,9 @@ const Cart = (props) => {
 
     return (
       <>
-      <OrderBackButton />
+      <div onClick ={props.togglePopUp}>
+        <OrderBackButton/>
+      </div>
           <div className="orders">
               <h1 className='orders-heading'>Your Orders</h1>
               <div className="orders-menu">
