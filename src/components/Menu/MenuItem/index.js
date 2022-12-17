@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { NavItem } from 'react-bootstrap'
 import ButtonAddRemoveItem from '../../ButtonAddRemoveItem'
 import './style.css'
@@ -7,7 +7,7 @@ import './style.css'
 
 const MenuItem = (props) => {
     const {id, name, info, price, img} = props.item
-    const [quantity, setQuantity] = useState(0)
+    const [quantity, setQuantity] = useState(1)
 
     const handleRemoveItem = ()=>{
       setQuantity(quantity-1) 

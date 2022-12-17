@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
 import { ref, onValue, set } from "firebase/database"
 import { db } from "../database/firebase"
+import ListGroup from 'react-bootstrap/ListGroup'
 import { Container } from "react-bootstrap"
 import { menuItemsData } from './Menu/data'
 import Menu from "./Menu"
-import OrderCountButton from "./OrderCountButton"
 
 function DisplayMenu(props) {
 
@@ -54,9 +54,7 @@ function DisplayMenu(props) {
             <>
                 <Container className="center bg-white text-center rounded">
                     <Menu list={menuItemsData} />
-                    {/* <button onClick={createReceipt}>Order</button> */}
-                    <OrderCountButton />
-                    
+                    <button onClick={createReceipt}>Order</button>
                 </Container>
             </>
         )
