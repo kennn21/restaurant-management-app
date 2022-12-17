@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Client from './pages/Client';
+import Cart from './components/Cart';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
   {
     path: "/client",
     element:<Client/>,
-  },
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

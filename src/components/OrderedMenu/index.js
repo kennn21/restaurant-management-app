@@ -5,7 +5,6 @@ import './style.css'
 const OrderedMenu = (props) => {
   return (
     <main>
-      {console.log(props.list[0].id)}
         {
           props.list.map((item)=>{
             return(

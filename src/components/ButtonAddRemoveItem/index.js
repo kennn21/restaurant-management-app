@@ -8,7 +8,6 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 const ButtonAddRemoveItem = (props) => {
   return (
     <div className='btnAddRemove'>
-        {console.log(props.quantity)}
         {props.quantity !=0 ? 
         (<div className='btnAddRemove-positive'>
             <FontAwesomeIcon icon={faMinus} onClick={props.handleRemoveItem}/>

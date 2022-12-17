@@ -117,6 +117,6 @@ export const menuItemsData = [
       info: 'spicey with garlic and then deep fried to crispy perfection',
       price: 24,
       img: '/images/pizza.png',
-    },
+    }
   ];
   

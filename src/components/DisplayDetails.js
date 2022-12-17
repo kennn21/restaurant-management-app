@@ -72,7 +72,8 @@ function DisplayDetails(props) {
         let id = props.activeTableId
         let status = 0
         update(ref(db, '/tables/'+id), {
-            status: status
+            status: status,
+            active_receipt_id: "inactive"
         })
         props.disableIsPopUp()
     }

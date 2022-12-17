@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { NavItem } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
 import ButtonAddRemoveItem from '../../ButtonAddRemoveItem'
 import './style.css'
 
@@ -7,14 +6,18 @@ import './style.css'
 
 const MenuItem = (props) => {
     const {id, name, info, price, img} = props.item
-    const [quantity, setQuantity] = useState(1)
+    const [quantity, setQuantity] = useState(0)
 
     const handleRemoveItem = ()=>{
-      setQuantity(quantity-1) 
+      setQuantity(quantity-1)
     }
     const handleAddItem = ()=>{
       setQuantity(quantity+1)
     }
+
+    useEffect(()=>{
+      props.triggerSetNewItem(id, quantity)
+    },[quantity])
 
   return (
     <div className='item'>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './style.css'
 
 
@@ -6,7 +6,6 @@ import './style.css'
 const OrderedItem = (props) => {
     const {id, name, info, price, img} = props.item
     const [quantity, setQuantity] = useState(0)
-
   return (
     <div className='item'>
         <img src={img} alt="item" />
