@@ -10,8 +10,10 @@ function DisplayNavbar() {
         <Container>
           <Navbar.Brand><Link to ="/">Home</Link></Navbar.Brand>
           <Nav className="me-auto">
-            <Link to ="/client">Client</Link>
+            <Link to ="/client" className="p-2">Client</Link>
+            <Link to ="/receipts" className="p-2">Receipts</Link>
           </Nav>
+
         </Container>
       </Navbar>
     </>

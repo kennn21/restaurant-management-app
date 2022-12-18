@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Client from './pages/Client';
 import Cart from './components/Cart';
+import Receipts from './pages/Receipts';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/client",
     element:<Client/>,
+  },
+  {
+    path: "/receipts",
+    element:<Receipts/>,
   }
 ]);
 
