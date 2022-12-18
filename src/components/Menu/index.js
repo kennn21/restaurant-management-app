@@ -42,11 +42,18 @@ const Menu = (props) => {
   // }
   
   const addItemToCartList = newItem => {
-    // setCartList(current => [...current, newItem])
-    // clearDuplicates(newItem)
     cartList.push(newItem)
-    console.log("item id = " + newItem.itemId)
-    console.log("item qu = " + newItem.itemQu)
+    for(let i = 1; i < cartList.length; i++){
+      if(newItem.itemId == cartList[i].itemId){
+        // console.log(newItem.itemId)
+        // console.log("added new item")
+        if(newItem.itemQu > 1){
+          cartList[i].itemQu+=1
+          // console.log("add quantity")
+          cartList.pop()
+        }
+      }
+    }
     console.log(cartList)
   }
   
