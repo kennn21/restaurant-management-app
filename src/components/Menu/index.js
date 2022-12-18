@@ -8,6 +8,7 @@ import Cart from '../Cart'
 
 const Menu = (props) => {
   const [cartList, setCartList] = useState([])
+  const [cartCount, setCartCount] = useState("0")
   const [newItem, setNewItem] = useState({
     itemId: 0,
     itemQu: 0
@@ -28,18 +29,6 @@ const Menu = (props) => {
       }
       )
   }
-
-  // const clearDuplicates = (newItem)=>{
-  //   console.log(newItem.itemId)
-  //   console.log(cartList[cartList.length - 1].itemId)
-  //   console.log(cartList[cartList.length - 1].itemId === newItem.itemId)
-  //   if(cartList[cartList.length - 1].itemId === newItem.itemId && cartList.length > 2){
-  //   cartList.push(newItem)
-  //     cartList[cartList.length -1].itemQu = newItem.itemQu
-  //     cartList.pop()
-  //     console.log("popping")
-  //   }
-  // }
   
   const addItemToCartList = newItem => {
     cartList.push(newItem)
@@ -47,20 +36,29 @@ const Menu = (props) => {
       if(newItem.itemId == cartList[i].itemId){
         // console.log(newItem.itemId)
         // console.log("added new item")
-        if(newItem.itemQu > 1){
+        if(newItem.itemQu < cartList[i].itemQu){
+          cartList[i].itemQu-=1
+          cartList.pop()
+        }
+        if(newItem.itemQu > cartList[i].itemQu){
           cartList[i].itemQu+=1
+          cartList.pop()
           // console.log("add quantity")
+        }
+        if(newItem.itemQu === 0){
           cartList.pop()
         }
       }
     }
+    setCartCount((cartList.length-1).toString())
     console.log(cartList)
   }
   
   if(props.isPopUp){
     return(
       <Cart
-        cartList={props.cartList}
+        cartList={props.cartList.slice(1)}
+        cartCount={cartCount}
         togglePopUp = {props.togglePopUp}
         isPopUp = {props.isPopUp}  
       />
@@ -70,7 +68,7 @@ const Menu = (props) => {
       <main>
             <div onClick={props.togglePopUp}>
               <OrderCountButton 
-                  cartCount = {cartList.slice(1).length}
+                  cartCount = {cartCount}
                   togglePopUp = {props.togglePopUp}
                   isPopUp = {props.isPopUp}
               />

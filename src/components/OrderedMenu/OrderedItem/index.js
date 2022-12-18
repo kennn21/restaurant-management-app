@@ -5,7 +5,6 @@ import './style.css'
 
 const OrderedItem = (props) => {
     const {id, name, info, price, img} = props.item
-    const [quantity, setQuantity] = useState(0)
   return (
     <div className='item'>
         <img src={img} alt="item" />
@@ -17,6 +16,8 @@ const OrderedItem = (props) => {
         </div>
         <div className="item-foot_desc">
             <span className="foot_desc-price">Rp. {price}</span>
+            <span className="foot_desc-price">{props.item.quantity}</span>
+
         </div>
     </div>
   )

@@ -10,6 +10,7 @@ import { db } from '../../database/firebase';
 const Cart = (props) => {
 
   var orderedList = []
+  const [updatedFood, setUpdatedFood] = useState({})
 
   console.log("cart list")
   console.log(props.cartList)
@@ -29,9 +30,8 @@ const Cart = (props) => {
   props.cartList.map((cItem, cIndex)=>{
     menuItemsData.map((item,index)=>{
       if(cItem.itemId === item.id){
-        if(cItem.itemQu > 0){
+          item.quantity = cItem.itemQu
           orderedList.push(item)
-        }
       }
     })
   })
@@ -49,7 +49,9 @@ const Cart = (props) => {
     return (
       <>
       <div onClick ={props.togglePopUp}>
-        <OrderBackButton/>
+        <OrderBackButton
+          cartCount = {props.cartCount}
+        />
       </div>
           <div className="orders">
               <h1 className='orders-heading'>Your Orders</h1>
