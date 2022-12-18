@@ -61,7 +61,7 @@ function DisplayDetails(props) {
     ,[])
 
 
-    const changeTableStatus = ()=>{
+    const finishTable = ()=>{
         let id = props.activeTableId
         let status = 0
         update(ref(db, '/tables/'+id), {
@@ -88,7 +88,7 @@ function DisplayDetails(props) {
     var buttonFinish = (table) =>{
         if(table == 1){
             return(
-                <Button onClick={()=>{changeTableStatus()}}>Finish table</Button>
+                <Button onClick={()=>{finishTable()}}>Finish table</Button>
             )
         }
         return(<></>)
