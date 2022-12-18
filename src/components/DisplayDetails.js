@@ -32,7 +32,7 @@ var tableStatusPositiveStyle = {
 
 function DisplayDetails(props) {
     const [selectedTable, setSelectedTable] = useState([])
-    const [receipts, setReceipts] = useState([])
+    const [receiptFood, setReceiptFood] = useState({})
     const [selectedReceipt, setSelectedReceipt] = useState({})
     const [tableStatus, setTableStatus] = useState()
     const [orderedFoods, setOrderedFoods] = useState([])
@@ -45,10 +45,10 @@ function DisplayDetails(props) {
                 if(table[1].id == props.activeTableId){
                     setSelectedTable(table[1])
                     onValue(ref(db,"receipts/"+table[1].active_receipt_id), (snapshot) => {
-                        setReceipts([])
+                        setReceiptFood({})
                         const data = snapshot.val()
                         if(data){
-                          setReceipts(data)
+                          setReceiptFood(data.orderedFood)
                         }
                     })
                 }
@@ -57,9 +57,6 @@ function DisplayDetails(props) {
 
     }
     ,[])
-
-    Object.entries(receipts).map((receipt)=>{
-    })
 
 
     const changeTableStatus = ()=>{
@@ -100,11 +97,12 @@ function DisplayDetails(props) {
             <Container style={textStyle} className="bg-dark text-center rounded">
                 <h1>{selectedTable.name}</h1>
                 {convertStatus(selectedTable.status)}
-                {console.log(receipts)}
-                {receipts.orderedFood.map((food, index)=>{
+                {console.log(receiptFood)}
+                {
+                Object.entries(receiptFood).map((food, index)=>{
                     return(
                         <>
-                            <h6>{food.name} x {food.quantity}</h6>
+                            <h6>{food[1].name} x {food[1].quantity}</h6>
                         </>
                     )
                 })}
