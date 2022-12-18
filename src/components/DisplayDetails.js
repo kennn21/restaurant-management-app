@@ -31,8 +31,6 @@ var tableStatusPositiveStyle = {
 
 
 function DisplayDetails(props) {
-    console.log("props")
-    console.log(props)
     const [selectedTable, setSelectedTable] = useState([])
     const [receipts, setReceipts] = useState([])
     const [selectedReceipt, setSelectedReceipt] = useState({})
@@ -46,24 +44,21 @@ function DisplayDetails(props) {
             Object.entries(data).map((table,i)=>{
                 if(table[1].id == props.activeTableId){
                     setSelectedTable(table[1])
+                    onValue(ref(db,"receipts/"+table[1].active_receipt_id), (snapshot) => {
+                        setReceipts([])
+                        const data = snapshot.val()
+                        if(data){
+                          setReceipts(data)
+                        }
+                    })
                 }
             })
         })
-        onValue(ref(db,"receipts/"+selectedTable.active_receipt_id), (snapshot) => {
-            setReceipts([])
-            const data = snapshot.val()
-            if(data){
-              setReceipts(data)
-              console.log(data)
-            }
-            console.log(data)
-        })
+
     }
     ,[])
 
     Object.entries(receipts).map((receipt)=>{
-        console.log("receipt")
-        console.log(receipt)
     })
 
 
@@ -105,13 +100,14 @@ function DisplayDetails(props) {
             <Container style={textStyle} className="bg-dark text-center rounded">
                 <h1>{selectedTable.name}</h1>
                 {convertStatus(selectedTable.status)}
-                {/* {selectedReceipt.orderedFood.map((food, index)=>{
+                {console.log(receipts)}
+                {receipts.orderedFood.map((food, index)=>{
                     return(
                         <>
                             <h6>{food.name} x {food.quantity}</h6>
                         </>
                     )
-                })} */}
+                })}
                 <button style={popUpCancelBtnStyle} className="btn btn-danger" onClick={props.disableIsPopUp}>x</button>
                 {
                     buttonFinish(selectedTable.status)
