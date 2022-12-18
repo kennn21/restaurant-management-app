@@ -33,6 +33,7 @@ var tableStatusPositiveStyle = {
 function DisplayDetails(props) {
     const [selectedTable, setSelectedTable] = useState([])
     const [receiptFood, setReceiptFood] = useState({})
+    const [price, setPrice] = useState(0)
     const [selectedReceipt, setSelectedReceipt] = useState({})
     const [tableStatus, setTableStatus] = useState()
     const [orderedFoods, setOrderedFoods] = useState([])
@@ -49,6 +50,7 @@ function DisplayDetails(props) {
                         const data = snapshot.val()
                         if(data){
                           setReceiptFood(data.orderedFood)
+                          setPrice(data.totalPrice)
                         }
                     })
                 }
@@ -97,15 +99,16 @@ function DisplayDetails(props) {
             <Container style={textStyle} className="bg-dark text-center rounded">
                 <h1>{selectedTable.name}</h1>
                 {convertStatus(selectedTable.status)}
-                {console.log(receiptFood)}
-                {
-                Object.entries(receiptFood).map((food, index)=>{
+                {console.log('a')}
+                {console.log(selectedTable.active_receipt_id)}
+                {Object.entries(receiptFood).map((food, index)=>{
                     return(
                         <>
                             <h6>{food[1].name} x {food[1].quantity}</h6>
                         </>
                     )
                 })}
+                <div>{price}</div>
                 <button style={popUpCancelBtnStyle} className="btn btn-danger" onClick={props.disableIsPopUp}>x</button>
                 {
                     buttonFinish(selectedTable.status)
