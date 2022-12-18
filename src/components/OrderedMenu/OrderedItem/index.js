@@ -4,6 +4,7 @@ import './style.css'
 
 
 const OrderedItem = (props) => {
+
     const {id, name, info, price, img} = props.item
   return (
     <div className='item'>

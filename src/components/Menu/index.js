@@ -13,12 +13,12 @@ const Menu = (props) => {
     itemId: 0,
     itemQu: 0
   })
-  
   useEffect(() =>{
     if(newItem.itemId === 0) return
     addItemToCartList(newItem)
     // console.log(cartList)
     props.triggerUpdate(cartList)
+
   },[newItem, setNewItem])
 
   const triggerSetNewItem = (newItemId, newItemQu) => {
@@ -61,6 +61,7 @@ const Menu = (props) => {
         cartCount={cartCount}
         togglePopUp = {props.togglePopUp}
         isPopUp = {props.isPopUp}  
+        activeTable = {props.activeTable}
       />
     )
   } else{
@@ -73,9 +74,7 @@ const Menu = (props) => {
                   isPopUp = {props.isPopUp}
               />
             </div>
-
           {
-  
             props.list.map((item)=>{
               return(
                 <MenuItem

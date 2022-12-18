@@ -9,19 +9,12 @@ import { db } from '../../database/firebase';
 
 const Cart = (props) => {
 
-  var orderedList = []
-  const [updatedFood, setUpdatedFood] = useState({})
+  let orderedList = []
+  let tempTotalPrice = 0
+  const [totalPrice, setTotalPrice] = useState(0)
 
   console.log("cart list")
   console.log(props.cartList)
-  menuItemsData.map((item, index)=>{
-    // props.cartList.map((cItem, cIndex)=>{
-    //   if(item.id === cItem.itemId){
-    //     setOrderedList(current => [...current, item])
-    //   }
-    //   console.log(orderedList)
-    // })
-  })
 
   // const addObjectToArray = obj => {
   //   setOrderedList(current => [...current, obj]);
@@ -36,15 +29,20 @@ const Cart = (props) => {
     })
   })
 
-  // useEffect(()=>{
-  //   onValue(ref(db,"/receipts/"+), (snapshot) => {
-  //     setTables([])
-  //     const data = snapshot.val()
-  //     if(data){
-  //       setTables(data)
-  //     }
-  //   })
-  // },[])
+  const confirmOrder = () =>{
+    update(ref(db, '/receipts/'+props.activeTable.active_receipt_id), {
+      orderedFood: orderedList,
+      totalPrice: totalPrice
+    })
+    console.log(props.activeTable.active_receipt_id)
+  }
+
+  useEffect(()=>{
+    for(let i = 0; i < orderedList.length; i++){
+      tempTotalPrice = tempTotalPrice + (orderedList[i].price *orderedList[i].quantity)
+    }
+    setTotalPrice(tempTotalPrice)
+  },[])
 
     return (
       <>
@@ -59,7 +57,8 @@ const Cart = (props) => {
                   {/* <Menu list={menuItemsData} /> */}
                   <OrderedMenu list={orderedList} />
               </div>
-              <h3 className='orders-total'>Your Total Rp. </h3>
+              <h3 className='orders-total'>Your Total Rp.{totalPrice} </h3>
+              <button onClick={confirmOrder}>confirm Order</button>
           </div>
       </>
     )

@@ -31,23 +31,15 @@ var tableStatusPositiveStyle = {
 
 
 function DisplayDetails(props) {
-
+    console.log("props")
+    console.log(props)
     const [selectedTable, setSelectedTable] = useState([])
-    const [selectedReceipt, setSelectedReceipt] = useState([])
-    const [selectedFood, setSelectedFood] = useState([])
+    const [receipts, setReceipts] = useState([])
+    const [selectedReceipt, setSelectedReceipt] = useState({})
     const [tableStatus, setTableStatus] = useState()
-
-    var ordered_foods = []
+    const [orderedFoods, setOrderedFoods] = useState([])
 
     useEffect(() =>{
-        Object.entries(props.receipts).map((receipt) =>{
-            if(receipt[1].table_id == props.activeTableId){
-                var data = receipt[1]
-                setSelectedReceipt(data)
-                setSelectedFood(data.ordered_foods)
-            }
-        })
-
         onValue(ref(db,"tables"), (snapshot) => {
             setSelectedTable([])
             const data = snapshot.val()
@@ -56,17 +48,24 @@ function DisplayDetails(props) {
                     setSelectedTable(table[1])
                 }
             })
-          })
+        })
+        onValue(ref(db,"receipts/"+selectedTable.active_receipt_id), (snapshot) => {
+            setReceipts([])
+            const data = snapshot.val()
+            if(data){
+              setReceipts(data)
+              console.log(data)
+            }
+            console.log(data)
+        })
     }
     ,[])
-    
-    Object.entries(props.foods).map((food) =>{
-        Object.entries(selectedFood).map((f) =>{
-            if(food[1].id == f[1]){
-                ordered_foods.push(food[1])
-            }
-        })
+
+    Object.entries(receipts).map((receipt)=>{
+        console.log("receipt")
+        console.log(receipt)
     })
+
 
     const changeTableStatus = ()=>{
         let id = props.activeTableId
@@ -105,13 +104,14 @@ function DisplayDetails(props) {
         return(
             <Container style={textStyle} className="bg-dark text-center rounded">
                 <h1>{selectedTable.name}</h1>
-                {ordered_foods.map((food,index)=>{
-                    return(
-                        <p key={food.id}>{food.name}</p>
-                    )
-                })}
                 {convertStatus(selectedTable.status)}
-                {/* <button onClick={()=>{changeTableStatus(props.activeTable)}}>Change reservation status</button> */}
+                {/* {selectedReceipt.orderedFood.map((food, index)=>{
+                    return(
+                        <>
+                            <h6>{food.name} x {food.quantity}</h6>
+                        </>
+                    )
+                })} */}
                 <button style={popUpCancelBtnStyle} className="btn btn-danger" onClick={props.disableIsPopUp}>x</button>
                 {
                     buttonFinish(selectedTable.status)

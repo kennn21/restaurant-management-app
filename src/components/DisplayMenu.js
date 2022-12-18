@@ -8,9 +8,9 @@ import Menu from "./Menu"
 import OrderCountButton from "./OrderCountButton"
 
 function DisplayMenu(props) {
-
     const [cartList, setCartList] = useState([{}])
     const [isPopUp, setIsPopUp] = useState(false)
+    const [activeTable, setActiveTable] = useState({})
 
     const togglePopUp = () => {
       setIsPopUp(!isPopUp)
@@ -18,13 +18,18 @@ function DisplayMenu(props) {
     }
 
     useEffect(() => {
-        console.log(cartList)
+        onValue(ref(db, "/tables/"+props.activeTable.id),(snapshot)=>{
+            const data = snapshot.val()
+            if(data){
+              setActiveTable(data)
+              console.log(data)
+            }
+        })
     }, [cartList, setCartList])
 
     const triggerUpdate = (updatedCartList)=>{
         setCartList(updatedCartList)
     }
-
 
     if (props.isPopUp) {
         return (
@@ -36,6 +41,7 @@ function DisplayMenu(props) {
                         isPopUp = {isPopUp}
                         togglePopUp = {togglePopUp}
                         cartList = {cartList}
+                        activeTable = {activeTable}
                     />
                 </Container>
             </>

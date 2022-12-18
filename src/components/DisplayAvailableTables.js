@@ -64,7 +64,8 @@ function DisplayAvailableTables() {
         //create receipt (DONE)
         set(ref(db, '/receipts/'+recName), {
           recID: recName,
-          orderedFood: ""
+          orderedFood: "",
+          totalPrice: 0
         })
         //assign receipt (DONE)
         let currReceipt = recName
