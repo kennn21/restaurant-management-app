@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function DisplayNavbar() {
   return (
     <>
-    <Navbar bg="dark" variant="dark">
+    {/* <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand><Link to ="/">Home</Link></Navbar.Brand>
           <Nav className="me-auto">
@@ -15,7 +15,7 @@ function DisplayNavbar() {
           </Nav>
 
         </Container>
-      </Navbar>
+      </Navbar> */}
     </>
   )
 }

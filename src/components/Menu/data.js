@@ -64,10 +64,10 @@ export const menuItemsData = [
     },
     {
       id: 10,
-      name: 'Egg',
-      info: 'Egg',
+      name: 'Andrew Tate',
+      info: 'O.G Egg',
       price: 2000,
-      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Egg_upright.jpg/1077px-Egg_upright.jpg',
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyOjycj_n37deO84A6sJ5Umx3flDLeZtMjWg&usqp=CAU',
     },
   ];
   

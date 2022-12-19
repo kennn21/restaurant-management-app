@@ -34,7 +34,7 @@ const Cart = (props) => {
       orderedFood: orderedList,
       totalPrice: totalPrice
     })
-    console.log(props.activeTable.active_receipt_id)
+    props.togglePopUp()
   }
 
   useEffect(()=>{
@@ -43,25 +43,29 @@ const Cart = (props) => {
     }
     setTotalPrice(tempTotalPrice)
   },[])
+if(props.isPopUp){
+  return (
+    <>
+    <div onClick ={props.togglePopUp}>
+      <OrderBackButton
+        cartCount = {props.cartCount}
+      />
+    </div>
+        <div className="orders">
+            <h1 className='orders-heading'>Your Orders</h1>
+            <div className="orders-menu">
+                {/* <Menu list={menuItemsData} /> */}
+                <OrderedMenu list={orderedList} />
+            </div>
+            <h3 className='orders-total'>Your Total Rp.{totalPrice} </h3>
+            <button onClick={confirmOrder}>confirm Order</button>
+        </div>
+    </>
+  )
+} else{
+  return(<></>)
+}
 
-    return (
-      <>
-      <div onClick ={props.togglePopUp}>
-        <OrderBackButton
-          cartCount = {props.cartCount}
-        />
-      </div>
-          <div className="orders">
-              <h1 className='orders-heading'>Your Orders</h1>
-              <div className="orders-menu">
-                  {/* <Menu list={menuItemsData} /> */}
-                  <OrderedMenu list={orderedList} />
-              </div>
-              <h3 className='orders-total'>Your Total Rp.{totalPrice} </h3>
-              <button onClick={confirmOrder}>confirm Order</button>
-          </div>
-      </>
-    )
 
 
 }
