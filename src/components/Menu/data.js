@@ -65,7 +65,7 @@ export const menuItemsData = [
     {
       id: 10,
       name: 'Andrew Tate',
-      info: 'O.G Egg',
+      info: 'Top G Egg',
       price: 2000,
       img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyOjycj_n37deO84A6sJ5Umx3flDLeZtMjWg&usqp=CAU',
     },
