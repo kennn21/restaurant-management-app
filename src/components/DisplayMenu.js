@@ -11,6 +11,7 @@ function DisplayMenu(props) {
     const [cartList, setCartList] = useState([{}])
     const [isPopUp, setIsPopUp] = useState(false)
     const [activeTable, setActiveTable] = useState({})
+    const [activeReceiptFood, setActiveReceiptFood] = useState([])
 
     const togglePopUp = () => {
       setIsPopUp(!isPopUp)
@@ -22,7 +23,12 @@ function DisplayMenu(props) {
             const data = snapshot.val()
             if(data){
               setActiveTable(data)
-              console.log(data)
+            }
+        })
+        onValue(ref(db, "/receipt/"+props.activeTable.active_receipt_id),(snapshot)=>{
+            const data = snapshot.val()
+            if(data){
+              setActiveReceiptFood(data.orderedFood)
             }
         })
     }, [cartList, setCartList])

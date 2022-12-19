@@ -42,6 +42,7 @@ function DisplayDetails(props) {
         onValue(ref(db,"tables"), (snapshot) => {
             setSelectedTable([])
             const data = snapshot.val()
+            console.log(data)
             Object.entries(data).map((table,i)=>{
                 if(table[1].id == props.activeTableId){
                     setSelectedTable(table[1])
@@ -99,8 +100,6 @@ function DisplayDetails(props) {
             <Container style={textStyle} className="bg-dark text-center rounded">
                 <h1>{selectedTable.name}</h1>
                 {convertStatus(selectedTable.status)}
-                {console.log('a')}
-                {console.log(selectedTable.active_receipt_id)}
                 {Object.entries(receiptFood).map((food, index)=>{
                     return(
                         <>
@@ -108,7 +107,7 @@ function DisplayDetails(props) {
                         </>
                     )
                 })}
-                <div>{price}</div>
+                <div>Rp. {price}</div>
                 <button style={popUpCancelBtnStyle} className="btn btn-danger" onClick={props.disableIsPopUp}>x</button>
                 {
                     buttonFinish(selectedTable.status)

@@ -2,9 +2,11 @@ import React,  { useEffect, useState } from 'react'
 import MenuItem from './MenuItem'
 import OrderCountButton from '../OrderCountButton'
 import './style.css'
-import { ref, onValue, set } from "firebase/database"
+import { ref, onValue, set, update } from "firebase/database"
 import { db } from '../../database/firebase'
 import Cart from '../Cart'
+import { menuItemsData } from '../Menu/data'
+
 
 const Menu = (props) => {
   const [cartList, setCartList] = useState([])
@@ -13,12 +15,30 @@ const Menu = (props) => {
     itemId: 0,
     itemQu: 0
   })
+  const [activeReceiptFood, setActiveReceiptFood] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
+  let orderedFood = []
+  let tempTotalPrice = 0
+
   useEffect(() =>{
+    for(let i = 0; i < orderedFood.length; i++){
+      tempTotalPrice = tempTotalPrice + (orderedFood[i].price *orderedFood[i].quantity)
+    }
+    console.log(tempTotalPrice)
+    setTotalPrice(tempTotalPrice)
+
     if(newItem.itemId === 0) return
     addItemToCartList(newItem)
     // console.log(cartList)
     props.triggerUpdate(cartList)
 
+    onValue(ref(db, "/receipt/"+props.activeTable.active_receipt_id),(snapshot)=>{
+      const data = snapshot.val()
+      if(data){
+        setActiveReceiptFood(data.orderedFood)
+        console.log(data)
+      }
+  })
   },[newItem, setNewItem])
 
   const triggerSetNewItem = (newItemId, newItemQu) => {
@@ -53,7 +73,26 @@ const Menu = (props) => {
     setCartCount((cartList.length-1).toString())
     console.log(cartList)
   }
-  
+    props.cartList.map((cItem, cIndex)=>{
+    menuItemsData.map((item,index)=>{
+      if(cItem.itemId === item.id){
+          item.quantity = cItem.itemQu
+          orderedFood.push(item)
+      }
+    })
+  })
+    const confirmOrder = () =>{
+    update(ref(db, '/receipts/'+props.activeTable.active_receipt_id), {
+
+      orderedFood: orderedFood.slice(1) || "",
+      totalPrice: totalPrice
+    })
+    console.log(props.activeTable.active_receipt_id)
+  }
+  const wrapperFunction = ()=>{
+    confirmOrder()
+    props.togglePopUp()
+  }
   if(props.isPopUp){
     return(
       <Cart
@@ -67,7 +106,7 @@ const Menu = (props) => {
   } else{
     return (
       <main>
-            <div onClick={props.togglePopUp}>
+            <div onClick={wrapperFunction}>
               <OrderCountButton 
                   cartCount = {cartCount}
                   togglePopUp = {props.togglePopUp}
