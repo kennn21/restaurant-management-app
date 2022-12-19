@@ -67,7 +67,7 @@ const Menu = (props) => {
   } else{
     return (
       <main>
-            <div onClick={props.togglePopUp}>
+            <div style={{position: "absolute"}} onClick={props.togglePopUp}>
               <OrderCountButton 
                   cartCount = {cartCount}
                   togglePopUp = {props.togglePopUp}

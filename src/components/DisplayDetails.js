@@ -7,6 +7,10 @@ import { set, ref, onValue, remove, update, Database } from "firebase/database"
 import { async } from "@firebase/util"
 import userEvent from "@testing-library/user-event"
 import Button from "react-bootstrap/Button"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
+import { Link } from "react-router-dom";
+
 
 
 var textStyle = {
@@ -110,9 +114,17 @@ function DisplayDetails(props) {
                 })}
                 <div>{price}</div>
                 <button style={popUpCancelBtnStyle} className="btn btn-danger" onClick={props.disableIsPopUp}>x</button>
-                {
+                <div className="d-flex justify-content-between align-middle">
+                    <Col className="">
+                    {
                     buttonFinish(selectedTable.status)
                 }
+                    <Link to ="/receipts" className="btn btn-primary m-1">Receipts</Link>
+                    </Col>
+
+
+                </div>
+
             </Container>
         )
     }else{
