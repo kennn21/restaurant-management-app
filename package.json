@@ -1,10 +1,7 @@
 {
   "name": "restaurant-management-app",
   "version": "0.1.0",
-<<<<<<< Updated upstream
-=======
   "homepage": "https://kennn21.github.io/",
->>>>>>> Stashed changes
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -17,11 +14,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-<<<<<<< Updated upstream
-=======
     "predeploy": "npm run build",
     "deploy": "-d build",
->>>>>>> Stashed changes
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
