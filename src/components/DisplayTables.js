@@ -6,11 +6,10 @@ import Row from 'react-bootstrap/Row';
 import DisplayDetails from './DisplayDetails';
 import config from '../config.json';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 import { db } from '../database/firebase';
-import { uid } from "uid";
-import { set, ref, onValue, remove, update } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 
 function DisplayTables(props){
 
@@ -48,7 +47,6 @@ function DisplayTables(props){
       }, []);
 
     var handle_table_button_click = (x) => {
-      //console.log(x.id)
       setActiveTableId(x.id)
       setIsPopUp(true)
     }
@@ -58,7 +56,6 @@ function DisplayTables(props){
     }
     
 
-// console.log(tables)
     if(isPopUp) {
       return (
         <DisplayDetails
@@ -75,7 +72,6 @@ function DisplayTables(props){
           <Container className="container d-flex justify-content-evenly">
             <Row className='d-flex justify-content-evenly'>
           {Object.entries(tables).map((table, i) =>{
-            // console.log(table[1])
             return(
               <Card style={{ width: '24rem' }} className="col-md-4" key={table[1].id}>
               <Card.Img variant="top" src={config.table_image_url} />

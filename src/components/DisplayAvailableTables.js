@@ -10,7 +10,6 @@ import config from '../config.json';
 
 import { db } from '../database/firebase';
 import {ref, onValue, update, set} from "firebase/database";
-import Menu from './Menu';
 
 function DisplayAvailableTables() {
 
@@ -48,7 +47,6 @@ function DisplayAvailableTables() {
 
     const changeTableStatus = (x)=>{
       let id = x.id
-      let activeReceipt = x.active_receipt_id
       let status = x.status
       if(status === 0){
         //change table status (DONE)
@@ -86,18 +84,6 @@ function DisplayAvailableTables() {
     var disableIsPopUp = () => {
         setIsPopUp(false)
       }
-
-      // if(isPopUp) {
-      //   return (
-      //       <DisplayMenu
-      //       activeTable={activeTable}
-      //       foods={foods}
-      //       receipts={receipts}
-      //       isPopUp={isPopUp}
-      //       disableIsPopUp={disableIsPopUp}
-      //       />
-      //   )
-      // }
 
       if(isPopUp) {
         return (

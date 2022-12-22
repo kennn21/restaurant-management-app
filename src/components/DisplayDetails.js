@@ -2,12 +2,8 @@ import { Container } from "react-bootstrap"
 import { useState, useEffect } from "react"
 
 import { db } from '../database/firebase'
-import { uid } from "uid"
-import { set, ref, onValue, remove, update, Database } from "firebase/database"
-import { async } from "@firebase/util"
-import userEvent from "@testing-library/user-event"
+import { ref, onValue, update } from "firebase/database"
 import Button from "react-bootstrap/Button"
-import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import { Link } from "react-router-dom";
 

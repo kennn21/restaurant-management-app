@@ -4,7 +4,7 @@ import { menuItemsData } from '../Menu/data'
 import OrderBackButton from '../OrderBackButton'
 import OrderedMenu from '../OrderedMenu'
 import './style.css'
-import { set, ref, onValue, remove, update } from "firebase/database";
+import { ref, update } from "firebase/database";
 import { db } from '../../database/firebase';
 
 const Cart = (props) => {
@@ -16,9 +16,6 @@ const Cart = (props) => {
   console.log("cart list")
   console.log(props.cartList)
 
-  // const addObjectToArray = obj => {
-  //   setOrderedList(current => [...current, obj]);
-  // };
 
   props.cartList.map((cItem, cIndex)=>{
     menuItemsData.map((item,index)=>{
@@ -54,7 +51,6 @@ if(props.isPopUp){
         <div className="orders">
             <h1 className='orders-heading'>Your Orders</h1>
             <div className="orders-menu">
-                {/* <Menu list={menuItemsData} /> */}
                 <OrderedMenu list={orderedList} />
             </div>
             <h3 className='orders-total'>Your Total Rp.{totalPrice} </h3>

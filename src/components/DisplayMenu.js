@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react"
-import { ref, onValue, set, update } from "firebase/database"
+import { ref, onValue } from "firebase/database"
 import { db } from "../database/firebase"
-import ListGroup from 'react-bootstrap/ListGroup'
 import { Container } from "react-bootstrap"
 import { menuItemsData } from './Menu/data'
 import Menu from "./Menu"
-import OrderCountButton from "./OrderCountButton"
 
 function DisplayMenu(props) {
     const [cartList, setCartList] = useState([{}])
