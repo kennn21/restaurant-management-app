@@ -7,8 +7,7 @@ import Button from "react-bootstrap/Button"
 import Col from "react-bootstrap/Col"
 import { Link } from "react-router-dom";
 
-
-
+//Brief stylings for some JSX elements
 var textStyle = {
     color: "white"
 }
@@ -31,13 +30,12 @@ var tableStatusPositiveStyle = {
 
 
 function DisplayDetails(props) {
+    //Declares States
     const [selectedTable, setSelectedTable] = useState([])
     const [receiptFood, setReceiptFood] = useState({})
     const [price, setPrice] = useState(0)
-    const [selectedReceipt, setSelectedReceipt] = useState({})
-    const [tableStatus, setTableStatus] = useState()
-    const [orderedFoods, setOrderedFoods] = useState([])
 
+    //Gets table data from db, whilst joining it with receipt data to get the updated ordered food data if it changes in db
     useEffect(() =>{
         onValue(ref(db,"tables"), (snapshot) => {
             setSelectedTable([])
@@ -61,6 +59,7 @@ function DisplayDetails(props) {
     ,[])
 
 
+    //Change the status of a finished table, whilst turns the active receipt foreign key to inactive(false)
     const finishTable = ()=>{
         let id = props.activeTableId
         let status = 0
@@ -71,20 +70,19 @@ function DisplayDetails(props) {
         props.disableIsPopUp()
     }
 
-
+    //Converts status from a form of numbers to words
     var convertStatus = (status)=>{
         switch(status) {
             case 0:
               return <h6 style={tableStatusPositiveStyle}>Available</h6>
-              break;
             case 1:
               return <h6 style={tableStatusNegativeStyle}>Reserved</h6>
-              break;
             default:
               return <h6 style={tableStatusNegativeStyle}>Reserved</h6>
           }
     }
 
+    //Conditionally renders a button if the table status is Reserved(Code 1)
     var buttonFinish = (table) =>{
         if(table == 1){
             return(
@@ -94,6 +92,7 @@ function DisplayDetails(props) {
         return(<></>)
     }
 
+    //Renders a popup if the popup is true
     if(props.isPopUp){
         return(
             <Container style={textStyle} className="bg-dark text-center rounded">

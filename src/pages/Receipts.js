@@ -10,7 +10,10 @@ import Row from 'react-bootstrap/Row';
 import config from '../config.json'
 
 function Receipts() {
+  //Declare state
   const [receipts, setReceipts] = useState([])
+
+  //Gets receipts data from db
   useEffect(()=>{
     onValue(ref(db,"/receipts"), (snapshot=>{
       const data = snapshot.val()
@@ -20,6 +23,8 @@ function Receipts() {
       }
     }))
   })
+
+  //Renders
   return (
     <div>
       <DisplayNavbar></DisplayNavbar>

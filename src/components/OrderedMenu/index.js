@@ -3,6 +3,7 @@ import OrderedItem from './OrderedItem'
 import './style.css'
 
 const OrderedMenu = (props) => {
+  //Loops the ordered food list given by Cart
   return (
     <main>
         {

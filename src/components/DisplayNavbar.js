@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 
 
 function DisplayNavbar() {
+  //Calls the Navbar Component, turn on for development purposes
+
+  //Currently turned off for production use
   return (
     <>
     {/* <Navbar bg="dark" variant="dark">

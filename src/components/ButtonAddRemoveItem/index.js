@@ -3,7 +3,7 @@ import './style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
-
+//Renders whilst Calls functions from it's parent(Menu>MenuItem)
 const ButtonAddRemoveItem = (props) => {
   return (
     <div className='btnAddRemove'>

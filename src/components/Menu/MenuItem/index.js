@@ -5,20 +5,25 @@ import './style.css'
 
 
 const MenuItem = (props) => {
+  
+    //Sets Variables / States
     const {id, name, info, price, img} = props.item
     const [quantity, setQuantity] = useState(0)
 
+    //Creates event handlers for Removing item quantity and Adding Item Quantity
     const handleRemoveItem = ()=>{
       setQuantity(quantity-1)
     }
     const handleAddItem = ()=>{
       setQuantity(quantity+1)
-    }
+    } 
 
+    //Conditionally calls a trigger function to Menu(parent) to pass id and quantity
     useEffect(()=>{
       props.triggerSetNewItem(id, quantity)
     },[quantity])
 
+  //Renders
   return (
     <div className='item'>
         <img src={img} alt="item" />

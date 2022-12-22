@@ -9,14 +9,12 @@ import { db } from '../../database/firebase';
 
 const Cart = (props) => {
 
+  //Declares Variables / States
   let orderedList = []
   let tempTotalPrice = 0
   const [totalPrice, setTotalPrice] = useState(0)
 
-  console.log("cart list")
-  console.log(props.cartList)
-
-
+  //Joins the ordered item foreign key to the food menu data
   props.cartList.map((cItem, cIndex)=>{
     menuItemsData.map((item,index)=>{
       if(cItem.itemId === item.id){
@@ -26,6 +24,7 @@ const Cart = (props) => {
     })
   })
 
+  //Confirms the order by updating the ordered food data to db
   const confirmOrder = () =>{
     update(ref(db, '/receipts/'+props.activeTable.active_receipt_id), {
       orderedFood: orderedList,
@@ -34,12 +33,15 @@ const Cart = (props) => {
     props.togglePopUp()
   }
 
+  //Calculates and sets the Total Price using conditional function calls(useEffect)
   useEffect(()=>{
     for(let i = 0; i < orderedList.length; i++){
       tempTotalPrice = tempTotalPrice + (orderedList[i].price *orderedList[i].quantity)
     }
     setTotalPrice(tempTotalPrice)
   },[])
+
+  //Renders
 if(props.isPopUp){
   return (
     <>

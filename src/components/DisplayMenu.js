@@ -6,15 +6,19 @@ import { menuItemsData } from './Menu/data'
 import Menu from "./Menu"
 
 function DisplayMenu(props) {
+
+    //Declares States
     const [cartList, setCartList] = useState([{}])
     const [isPopUp, setIsPopUp] = useState(false)
     const [activeTable, setActiveTable] = useState({})
 
+    //Function to toggle the popup state for Menu Component(child component)
     const togglePopUp = () => {
       setIsPopUp(!isPopUp)
       console.log(isPopUp)
     }
 
+    //Gets active table data from db
     useEffect(() => {
         onValue(ref(db, "/tables/"+props.activeTable.id),(snapshot)=>{
             const data = snapshot.val()
@@ -25,10 +29,12 @@ function DisplayMenu(props) {
         })
     }, [cartList, setCartList])
 
+    //Receives updatedCartList data from Menu Component (Child component)
     const triggerUpdate = (updatedCartList)=>{
         setCartList(updatedCartList)
     }
 
+    //Renders the popup called by DisplayAvailableTable component(parent component)
     if (props.isPopUp) {
         return (
             <>

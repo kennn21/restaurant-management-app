@@ -5,6 +5,7 @@ import './style.css'
 
 const OrderedItem = (props) => {
 
+    //A food viewmodel to be looped by parent(OrderedMenu)
     const {id, name, info, price, img} = props.item
   return (
     <div className='item'>

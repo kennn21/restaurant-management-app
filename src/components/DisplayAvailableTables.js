@@ -13,12 +13,14 @@ import {ref, onValue, update, set} from "firebase/database";
 
 function DisplayAvailableTables() {
 
+    //Declares States
     const [tables, setTables] = useState([])
     const [foods, setFoods] = useState([])
     const [receipts, setReceipts] = useState([])
     const [activeTable, setActiveTable] = useState([])
     const [isPopUp, setIsPopUp] = useState(false)
 
+    //Gets data from db if value on database changes.
     useEffect(() => {
         onValue(ref(db,"tables"), (snapshot) => {
             setTables([])
@@ -45,6 +47,7 @@ function DisplayAvailableTables() {
           })
     }, [])
 
+    //Change the table status
     const changeTableStatus = (x)=>{
       let id = x.id
       let status = x.status
@@ -75,16 +78,19 @@ function DisplayAvailableTables() {
       }
     }
 
+    //Event handler for button click on each table
     var handle_table_button_click = (x, y) => {
         setActiveTable(x)
         setIsPopUp(y)
         changeTableStatus(x)
     }
 
+    //Turns isPopUp boolean to false
     var disableIsPopUp = () => {
         setIsPopUp(false)
       }
 
+      //Renders the popup screen if popup is true
       if(isPopUp) {
         return (
           <DisplayMenu
@@ -97,6 +103,7 @@ function DisplayAvailableTables() {
         )
       }
 
+      //Renders the table list on client side
   return (
     <>
      <Container className="container d-flex justify-content-evenly">

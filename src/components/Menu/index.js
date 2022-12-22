@@ -5,12 +5,16 @@ import './style.css'
 import Cart from '../Cart'
 
 const Menu = (props) => {
+
+  //Declares States
   const [cartList, setCartList] = useState([])
   const [cartCount, setCartCount] = useState("0")
   const [newItem, setNewItem] = useState({
     itemId: 0,
     itemQu: 0
   })
+
+  //If new item state changes, adds a new ordered item to Cart List,  and triggers a function from the parent to pass a data
   useEffect(() =>{
     if(newItem.itemId === 0) return
     addItemToCartList(newItem)
@@ -18,6 +22,7 @@ const Menu = (props) => {
 
   },[newItem, setNewItem])
 
+  //Declares a function to receive data from childrens
   const triggerSetNewItem = (newItemId, newItemQu) => {
     setNewItem(
       {
@@ -27,6 +32,9 @@ const Menu = (props) => {
       )
   }
   
+  //An algorithm to conditionally adds/updates item to the Cartlist with conditions:
+  //If the cart already has the same item, then update the quantity
+  //If the cart does not already have the same item, add the new item
   const addItemToCartList = newItem => {
     cartList.push(newItem)
     for(let i = 1; i < cartList.length; i++){
@@ -48,6 +56,7 @@ const Menu = (props) => {
     console.log(cartList)
   }
   
+  //Conditionally Renders different JSX(s) depending on PopUp Status
   if(props.isPopUp){
     return(
       <Cart

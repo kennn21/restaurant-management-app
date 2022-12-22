@@ -11,14 +11,16 @@ import { useEffect, useState } from 'react';
 import { db } from '../database/firebase';
 import { ref, onValue } from "firebase/database";
 
-function DisplayTables(props){
+function DisplayTables(){
 
+    //Declares states
     const [tables, setTables] = useState([])
     const [activeTableId, setActiveTableId] = useState("")
     const [foods, setFoods] = useState([])
     const [receipts, setReceipts] = useState([])
     const [isPopUp, setIsPopUp] = useState(false)
 
+    //Gets data from db if the values on db change
     useEffect(() => {
         onValue(ref(db,"tables"), (snapshot) => {
           setTables([])
@@ -46,16 +48,18 @@ function DisplayTables(props){
 
       }, []);
 
+      //Event handler for click event on table button
     var handle_table_button_click = (x) => {
       setActiveTableId(x.id)
       setIsPopUp(true)
     }
 
+    //Disable Popup / Close popup
     var disableIsPopUp = () => {
       setIsPopUp(false)
     }
     
-
+    //Calls DisplayDetails component if popup
     if(isPopUp) {
       return (
         <DisplayDetails
@@ -67,6 +71,8 @@ function DisplayTables(props){
         />
       )
     }
+
+    //Renders DisplayTables Component if no popup
     return (
         <>
           <Container className="container d-flex justify-content-evenly">
