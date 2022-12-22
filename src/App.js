@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import DisplayTables from './components/DisplayTables';
+import DisplayNavbar from './components/DisplayNavbar';
+// import DisplayDetails from './components/DisplayDetails';
+
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DisplayNavbar></DisplayNavbar>
+
+      {/* Title */}
+      <div className="container align-top text-center">
+        <h1>Restaurant management app</h1>
+      </div>
+
+
+      {/* Content */}
+      <DisplayTables />
+
+      
     </div>
   );
 }
